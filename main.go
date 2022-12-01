@@ -50,15 +50,9 @@ func collectData(s serial.Port, sample_size int, interval_value int) {
 			fmt.Printf("Could not write text to %s\n", file_name)
 		}
 
-		// sz := cap(buff)
-		// fmt.Printf("The cap is: %v \n", sz)
+		// buff to string
+		fmt.Printf("Read %d bytes: %s \n", n, string(buff[:n]))
 
-		// fmt.Println(buff)
-
-		// for _, i := range buff[:n] {
-		// 	fmt.Printf("% 08b", i) // prints 00000000 11111101
-		// }
-		// fmt.Println()
 		num_loop += 1
 		// sleep for 1 second
 		elapsed := time.Since(start)
@@ -96,7 +90,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	sample_size, interval_value := 2048, 1
+	sample_size, interval_value := 16, 1
 	collectData(port, sample_size, interval_value)
 
 }
