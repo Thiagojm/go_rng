@@ -1,11 +1,10 @@
 package main
 
 import (
-	"strings"
-	"bytes"
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"go.bug.st/serial"
@@ -26,7 +25,6 @@ func collectData(s serial.Port, sample_size int, interval_value int) {
 	for {
 		start := time.Now()
 		total_bytes += block_size
-		fmt.Printf("Collecting data - Loop: %d - Total bytes collected: %d\n", num_loop, total_bytes)
 		// Reads up to 100 bytes
 		n, err := s.Read(buff)
 		if err != nil {
@@ -51,14 +49,17 @@ func collectData(s serial.Port, sample_size int, interval_value int) {
 		if err2 != nil {
 			fmt.Printf("Could not write text to %s\n", file_name)
 		}
-		
+
 		// buff to string
-		var binStringB strings.Builder		
+		var sb strings.Builder
 		for i, _ := range buff {
-			binStringB.WriteString(fmt.Sprintf("%08b", buff[i]))
+			sb.WriteString(fmt.Sprintf("%08b", buff[i]))
 		}
-		binString := binStringB.String()
-		fmt.Println(binString)
+		binString := sb.String()
+		// Counting "1"s
+		ones := strings.Count(binString, "1")
+		fmt.Printf("Collecting data - Loop: %d - Total bytes collected: %d - ", num_loop, total_bytes)
+		fmt.Printf("Number of \"1\"s: %v\n", ones)
 
 		num_loop += 1
 		// sleep for 1 second
@@ -97,7 +98,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	sample_size, interval_value := 16, 1
+	sample_size, interval_value := 2048, 1
 	collectData(port, sample_size, interval_value)
 
 }
