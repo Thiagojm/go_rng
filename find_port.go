@@ -5,6 +5,7 @@ import (
 	"log"
 	"strings"
 
+	"go.bug.st/serial"
 	"go.bug.st/serial/enumerator"
 )
 
@@ -28,17 +29,13 @@ func get_correct_port() string {
 			}
 		}
 	}
-	for _, port := range ports {
-		//fmt.Printf("Port: %s\n", port.Name)
-		if port.Product != "" {
-			//fmt.Println(port)
-			//fmt.Println(port.Product)
-
-			p := string(port.Name)
-			return p
-		}
+	ports2, err2 := serial.GetPortsList()
+	if err2 != nil {
+		log.Fatal(err)
 	}
-
-	return "oi"
+	if len(ports2) == 0 {
+		log.Fatal(err)
+	}
+	return ports2[0]
 
 }
