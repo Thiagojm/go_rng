@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"runtime"
 	"strings"
 
 	"go.bug.st/serial"
@@ -10,34 +11,43 @@ import (
 )
 
 func get_correct_port() string {
-	ports, err := enumerator.GetDetailedPortsList()
-	if err != nil {
-		log.Fatal(err)
-	}
-	if len(ports) == 0 {
-		log.Fatal(err)
-	}
-	// Try to find the port with the correct name
-	for _, port := range ports {
-		//fmt.Printf("Port: %s\n", port.Name)
-		if port.Product != "" {
-			//fmt.Println(port)
-			//fmt.Println(port.Product)
-			if strings.Contains(port.Product, "TrueRNG") {
-				fmt.Printf("Found TrueRNG on %v\n", port.Name)
-				p := string(port.Name)
-				return p
+	os := runtime.GOOS
+
+	if os == "windows" {
+		ports, err := enumerator.GetDetailedPortsList()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if len(ports) == 0 {
+			log.Fatal(err)
+		}
+		// Try to find the port with the correct name
+		for _, port := range ports {
+			//fmt.Printf("Port: %s\n", port.Name)
+			if port.Product != "" {
+				//fmt.Println(port)
+				//fmt.Println(port.Product)
+				if strings.Contains(port.Product, "RNG") || strings.Contains(port.Product, "rng") {
+					fmt.Printf("Found TrueRNG on %v\n", port.Name)
+					p := string(port.Name)
+					return p
+				}
 			}
 		}
-	}
-	// If not found, return the first port
-	ports2, err2 := serial.GetPortsList()
-	if err2 != nil {
-		log.Fatal(err)
-	}
-	if len(ports2) == 0 {
-		log.Fatal(err)
-	}
-	return ports2[0]
+		return "Deu ruim"
+	} else if os == "linux" {
 
+		// If not found, return the first port
+		ports2, err2 := serial.GetPortsList()
+		if err2 != nil {
+			log.Fatal(err2)
+		}
+		if len(ports2) == 0 {
+			log.Fatal(err2)
+		}
+		return ports2[0]
+
+	} else {
+		return "Deu ruim"
+	}
 }
