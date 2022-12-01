@@ -17,6 +17,7 @@ func get_correct_port() string {
 	if len(ports) == 0 {
 		log.Fatal(err)
 	}
+	// Try to find the port with the correct name
 	for _, port := range ports {
 		//fmt.Printf("Port: %s\n", port.Name)
 		if port.Product != "" {
@@ -29,6 +30,7 @@ func get_correct_port() string {
 			}
 		}
 	}
+	// If not found, return the first port
 	ports2, err2 := serial.GetPortsList()
 	if err2 != nil {
 		log.Fatal(err)
