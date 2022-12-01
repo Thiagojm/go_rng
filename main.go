@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strings"
 	"bytes"
 	"fmt"
 	"log"
@@ -50,10 +51,14 @@ func collectData(s serial.Port, sample_size int, interval_value int) {
 		if err2 != nil {
 			fmt.Printf("Could not write text to %s\n", file_name)
 		}
-
+		
 		// buff to string
-		str1 := bytes.NewBuffer(buff).String()
-		fmt.Println("String =", str1)
+		var binStringB strings.Builder		
+		for i, _ := range buff {
+			binStringB.WriteString(fmt.Sprintf("%08b", buff[i]))
+		}
+		binString := binStringB.String()
+		fmt.Println(binString)
 
 		num_loop += 1
 		// sleep for 1 second
