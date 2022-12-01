@@ -28,6 +28,17 @@ func get_correct_port() string {
 			}
 		}
 	}
+	for _, port := range ports {
+		//fmt.Printf("Port: %s\n", port.Name)
+		if port.Product != "" {
+			//fmt.Println(port)
+			//fmt.Println(port.Product)
+
+			p := string(port.Name)
+			return p
+		}
+	}
+
 	return "oi"
 
 }
