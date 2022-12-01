@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"os"
@@ -51,7 +52,8 @@ func collectData(s serial.Port, sample_size int, interval_value int) {
 		}
 
 		// buff to string
-		fmt.Printf("Read %d bytes: %s \n", n, string(buff[:n]))
+		str1 := bytes.NewBuffer(buff).String()
+		fmt.Println("String =", str1)
 
 		num_loop += 1
 		// sleep for 1 second
