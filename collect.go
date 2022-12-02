@@ -17,6 +17,7 @@ func collectData(s serial.Port, sample_size int, interval_value int) {
 	buff := make([]byte, block_size)
 	num_loop := 1
 	total_bytes := 0
+	time.Sleep(300 * time.Millisecond)
 	for {
 		start := time.Now()
 		total_bytes += block_size
