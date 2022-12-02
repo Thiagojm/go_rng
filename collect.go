@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/csv"
 	"fmt"
 	"log"
 	"os"
@@ -11,7 +12,7 @@ import (
 )
 
 func collectData(s serial.Port, sample_size int, interval_value int) {
-	file_name := makeFileName(sample_size, interval_value)
+	file_name, csv_name := makeFileName(sample_size, interval_value)
 	block_size := sample_size / 8
 	buff := make([]byte, block_size)
 	num_loop := 1
@@ -54,6 +55,32 @@ func collectData(s serial.Port, sample_size int, interval_value int) {
 		ones := strings.Count(binString, "1")
 		fmt.Printf("Collecting data - Loop: %d - Total bytes collected: %d - ", num_loop, total_bytes)
 		fmt.Printf("Number of \"1\"s: %v\n", ones)
+
+		// Open a csvfile to write the data to
+
+		t := time.Now()
+		time_str := fmt.Sprintf("%02v:%02v:%02v", t.Hour(),
+			t.Minute(),
+			t.Second())
+		ones_str := fmt.Sprintf("%v", ones)
+		record := [][]string{{time_str + " " + ones_str}}
+		csvfile, err := os.OpenFile(csv_name, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+		defer csvfile.Close()
+
+		recordWriter := csv.NewWriter(csvfile)
+
+		for _, value := range record {
+			err := recordWriter.Write(value)
+			if err != nil {
+				fmt.Println("Error:", err)
+				return
+			}
+		}
+		recordWriter.Flush()
 
 		num_loop += 1
 		// sleep for 1 second
