@@ -9,23 +9,9 @@ import (
 func main() {
 
 	// Retrieve the port list
-	// ports, err := serial.GetPortsList()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// 	return
-	// }
-	// fmt.Println(ports)
-	// if len(ports) == 0 {
-	// 	log.Fatal("No serial ports found!")
-	// 	return
-	// }
-
-	// // Print the list of detected ports
-	// for _, port := range ports {
-	// 	fmt.Printf("Found port: %v\n", port)
-	// }
 	p := get_correct_port()
-	// Open the first serial port detected at 9600bps N81
+
+	// Open the first serial port detected at 300bps N81
 	mode := &serial.Mode{
 		BaudRate: 300,
 		Parity:   serial.NoParity,
