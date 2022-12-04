@@ -17,8 +17,7 @@ func get_correct_port() string {
 		ports, err := enumerator.GetDetailedPortsList()
 		if err != nil {
 			log.Fatal(err)
-		}
-		if len(ports) == 0 {
+		} else if len(ports) == 0 {
 			log.Fatal(err)
 		}
 		// Try to find the port with the correct name
@@ -41,8 +40,7 @@ func get_correct_port() string {
 		ports2, err2 := serial.GetPortsList()
 		if err2 != nil {
 			log.Fatal(err2)
-		}
-		if len(ports2) == 0 {
+		} else if len(ports2) == 0 {
 			log.Fatal(err2)
 		}
 		return ports2[0]

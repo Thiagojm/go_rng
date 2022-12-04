@@ -1,17 +1,16 @@
 package main
 
 import (
+	"crypto/rand"
 	"encoding/csv"
 	"fmt"
 	"log"
 	"os"
 	"strings"
 	"time"
-
-	"go.bug.st/serial"
 )
 
-func collectData(device string, s serial.Port, sample_size int, interval_value int) {
+func pseudo_collect(device string, sample_size int, interval_value int) {
 	file_name, csv_name := makeFileName(device, sample_size, interval_value)
 	block_size := sample_size / 8
 	buff := make([]byte, block_size)
@@ -22,12 +21,9 @@ func collectData(device string, s serial.Port, sample_size int, interval_value i
 		start := time.Now()
 		total_bytes += block_size
 		// Reads up to 100 bytes
-		n, err := s.Read(buff)
+		_, err := rand.Read(buff)
 		if err != nil {
-			log.Fatal(err)
-		}
-		if n == 0 {
-			fmt.Println("\nEOF")
+			log.Fatalf("error while generating random string: %s", err)
 		}
 
 		// Open a file to write the data to
