@@ -41,14 +41,11 @@ func get_correct_port() string {
 		if err2 != nil {
 			log.Fatal(err2)
 		} else if len(ports2) == 0 {
-			log.Fatal(err2)
-		} else {
-			fmt.Printf("Found TrueRNG on %v\n", ports2[0])
-			return ports2[0]
+			log.Fatal("No serial port found")
 		}
+		return ports2[0]
 
 	} else {
 		return "Failed"
 	}
-	return "Failed to detect OS"
 }
