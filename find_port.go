@@ -33,7 +33,7 @@ func get_correct_port() string {
 				}
 			}
 		}
-		return "Deu ruim"
+		return "Failed"
 	} else if os == "linux" {
 
 		// If not found, return the first port
@@ -42,10 +42,13 @@ func get_correct_port() string {
 			log.Fatal(err2)
 		} else if len(ports2) == 0 {
 			log.Fatal(err2)
+		} else {
+			fmt.Printf("Found TrueRNG on %v\n", ports2[0])
+			return ports2[0]
 		}
-		return ports2[0]
 
 	} else {
-		return "Deu ruim"
+		return "Failed"
 	}
+	return "Failed to detect OS"
 }
