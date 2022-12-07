@@ -1,13 +1,13 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"go.bug.st/serial"
 )
 
 func main() {
-
+	sample_size, interval_value := 2048, 1
 	// Retrieve the port list
 	p := get_correct_port()
 
@@ -20,9 +20,13 @@ func main() {
 	}
 	port, err := serial.Open(p, mode)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("Error opening port: no Serial found")
+		fmt.Println("Starting in Pseudo-Random mode - use for testing only.")
+		device := "pseudo"
+		pseudo_collect(device, sample_size, interval_value)
+	} else {
+		device := "trng"
+		collectData(device, port, sample_size, interval_value)
 	}
-	sample_size, interval_value := 2048, 1
-	collectData(port, sample_size, interval_value)
 
 }
