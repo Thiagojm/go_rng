@@ -78,7 +78,7 @@ If needed, install the linux drivers as described in the README.md in the udev_r
 The file name contains important information about the collected data. The first part is the date and time of the collection, then the device used (trng for TrueRNG and pseudo for PseudoRNG), the number of bits per sample, the time between each sample in seconds. For example "20201011-142208_trng_s2048_i1": Collected on October 11, 2020 (20201011), at 14:22:08 (142208), TrueRNG device (trng), sample of 2048 bits (s2048) every 1 second (i1).
 
 
-# Auto Start - Raspberry Pi OS
+# Auto Start on Boot - Raspberry Pi OS
 
 1- Install x-term:
 
@@ -96,4 +96,6 @@ The file name contains important information about the collected data. The first
 Type=Application  
 Name=RNG  
 Exec=xterm -hold -e 'cd /home/pi/Desktop/go_rng/ && go run .'  
+
+4- Now it shoud start the aplication everytime the system boot and start collecting.
 
