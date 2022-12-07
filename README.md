@@ -7,19 +7,19 @@ Written in Golang 1.19.3
 
 # ABSTRACT
 
-This application uses a type of TRNG - True Random Number Generator (TrueRNG) for data collection and statistical analysis for several purposes, including mind-matter interaction research. If you don't have the device, you can use the application to generate pseudo-random numbers aswell.
+This application uses a type of TRNG - True Random Number Generator (TrueRNG) for data collection and statistical analysis for several purposes, including mind-matter interaction research. If you don't have the device, you can use the application to generate pseudo-random numbers aswell.  
 It uses random numbers to collect and count the number of times the '1' bit appears in a series of user-defined size and interval. It will save the data in two files in the same directory as the application, one with a .csv extension and the other with a .bin extension (raw data to serve as control).
 
 Afterwards, the data can be analyzed and compared with the number expected by chance (50%) and create a chart with a cumulative Z-Score. For that please use the RngKitPSG application at https://github.com/Thiagojm/RngKitPSG.
 
 # Supported OS:
 
-1- Windows 10;
+1- Windows 10;  
 2- Linux (Ubuntu / Debian-based/ Raspberry Pi OS).
 
 # Supported Hardware:
 
-1- TrueRNG and TrueRNGPro (https://ubld.it/);
+1- TrueRNG and TrueRNGPro (https://ubld.it/);  
 2- In built software pseudo-random number generator.  
 
 # Installation
@@ -92,8 +92,8 @@ The file name contains important information about the collected data. The first
 
 3- Paste the following lines (change the path to go_rng if needed)):
 
-[Desktop Entry]
-Type=Application
-Name=RNG
-Exec=xterm -hold -e 'cd /home/pi/Desktop/go_rng/ && go run .'
+[Desktop Entry]  
+Type=Application  
+Name=RNG  
+Exec=xterm -hold -e 'cd /home/pi/Desktop/go_rng/ && go run .'  
 
