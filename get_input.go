@@ -20,6 +20,7 @@ func getInput(input chan int) {
 	input <- result
 }
 
+// as
 // fmt.Print(pterm.LightGreen("What's the sample size in bits (please insert a number divisible by 8)? - default = 2048 bits: "))
 // input_chan := make(chan int, 1)
 // go getInput(input_chan)
