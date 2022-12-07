@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/pterm/pterm"
 	"go.bug.st/serial"
 )
 
@@ -54,8 +55,8 @@ func collectData(device string, s serial.Port, sample_size int, interval_value i
 		binString := sb.String()
 		// Counting "1"s
 		ones := strings.Count(binString, "1")
-		fmt.Printf("Collecting data - Loop: %d - Total bytes collected: %d - ", num_loop, total_bytes)
-		fmt.Printf("Number of \"1\"s: %v\n", ones)
+		fmt.Printf(pterm.LightCyan("Collecting data - Loop: %d - Total bytes collected: %d - "), num_loop, total_bytes)
+		fmt.Printf(pterm.LightGreen("Number of \"1\"s: %v\n"), ones)
 
 		// Open a csvfile to write the data to
 
@@ -84,10 +85,11 @@ func collectData(device string, s serial.Port, sample_size int, interval_value i
 		recordWriter.Flush()
 
 		num_loop += 1
-		// sleep for 1 second
+		// sleep for x second
 		elapsed := time.Since(start)
 		//fmt.Printf("Time elapsed: %s\n", elapsed)
 		time_to_sleep := (time.Duration(interval_value) * time.Second) - elapsed
+		//fmt.Printf("Sleeping for: %v seconds \n", time_to_sleep)
 		time.Sleep(time_to_sleep)
 	}
 }

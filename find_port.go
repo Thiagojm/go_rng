@@ -6,6 +6,7 @@ import (
 	"runtime"
 	"strings"
 
+	"github.com/pterm/pterm"
 	"go.bug.st/serial"
 	"go.bug.st/serial/enumerator"
 )
@@ -27,7 +28,7 @@ func get_correct_port() string {
 				//fmt.Println(port)
 				//fmt.Println(port.Product)
 				if strings.Contains(port.Product, "RNG") || strings.Contains(port.Product, "rng") {
-					fmt.Printf("Found TrueRNG on %v\n", port.Name)
+					fmt.Printf(pterm.LightMagenta("Found TrueRNG on %v\n"), port.Name)
 					p := string(port.Name)
 					return p
 				}
