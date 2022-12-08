@@ -23,7 +23,7 @@ func main() {
 	// Check if default.txt exists
 	if _, err := os.Stat("default.txt"); err == nil {
 		// If it does exist, print a message
-		fmt.Println(pterm.LightBlue("Reading default.txt and setting variables"))
+		pterm.Success.Println("Reading default.txt and setting variables")
 		// Open default.txt
 		file, err := os.Open("default.txt")
 		checkErr(err)
@@ -39,8 +39,8 @@ func main() {
 		checkErr(err)
 		// Close the file
 		file.Close()
-		fmt.Printf(pterm.LightYellow("The sample size is the default value of %v bits\n"), sample_size)
-		fmt.Printf(pterm.LightYellow("The interval is the default value of %v second(s)\n"), interval_value)
+		pterm.Info.Printf("The sample size is the default value of %v bits\n", sample_size)
+		pterm.Info.Printf("The interval is the default value of %v second(s)\n", interval_value)
 	} else {
 		sample_size, interval_value = 1, 1
 		input_chan := make(chan int, 1)
@@ -51,13 +51,13 @@ func main() {
 			select {
 			case i := <-input_chan:
 				sample_size = i
-				fmt.Printf(pterm.LightYellow("The sample size is %v bits\n"), sample_size)
+				pterm.Info.Printf("The sample size is %v bits\n", sample_size)
 			case <-time.After(7000 * time.Millisecond):
 				sample_size = 2048
-				fmt.Printf(pterm.LightYellow("\nThe sample size is the default value of %v bits\n"), sample_size)
+				pterm.Info.Printf("\nThe sample size is the default value of %v bits\n", sample_size)
 			}
 			if sample_size%8 != 0 {
-				fmt.Println(pterm.LightRed("Please insert a number divisible by 8"))
+				pterm.Error.Printf("Please insert a number divisible by 8\n")
 			}
 		}
 
@@ -67,9 +67,9 @@ func main() {
 		select {
 		case i := <-input_chan:
 			interval_value = i
-			fmt.Printf(pterm.LightYellow("The interval is %v second(s)\n"), interval_value)
+			pterm.Info.Printf("The interval is %v second(s)\n", interval_value)
 		case <-time.After(7000 * time.Millisecond):
-			fmt.Printf(pterm.LightYellow("\nThe interval is the default value of %v second(s)\n"), interval_value)
+			pterm.Info.Printf("\nThe interval is the default value of %v second(s)\n", interval_value)
 		}
 	}
 
@@ -86,8 +86,8 @@ func main() {
 
 	port, err := serial.Open(p, mode)
 	if err != nil {
-		fmt.Println(pterm.LightRed("Error opening port: no Serial found"))
-		fmt.Println("Starting in Pseudo-Random mode - use for testing only.")
+		pterm.Error.Printf("Error opening port: no Serial found\n")
+		pterm.Warning.Printf("Starting in Pseudo-Random mode - use for testing only.\n")
 		device := "pseudo"
 		pseudo_collect(device, sample_size, interval_value)
 	} else {
