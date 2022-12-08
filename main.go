@@ -19,6 +19,13 @@ func checkErr(e error) {
 }
 
 func main() {
+	fmt.Println("")
+	pterm.DefaultHeader. // Use DefaultHeader as base
+				WithMargin(15).
+				WithBackgroundStyle(pterm.NewStyle(pterm.BgCyan)).
+				WithTextStyle(pterm.NewStyle(pterm.FgBlack)).
+				Println("Welcome to Go RNG! - v1.1 - by Thiago Jung")
+	fmt.Println("")
 	var sample_size, interval_value int
 	// Check if default.txt exists
 	if _, err := os.Stat("default.txt"); err == nil {
