@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"runtime"
 	"strings"
@@ -29,7 +28,7 @@ func get_correct_port() string {
 				//fmt.Println(port)
 				//fmt.Println(port.Product)
 				if strings.Contains(port.Product, "RNG") || strings.Contains(port.Product, "rng") {
-					fmt.Printf(pterm.LightMagenta("Found TrueRNG on %v\n"), port.Name)
+					pterm.Success.Printf("Found TrueRNG on %v\n", port.Name)
 					p := string(port.Name)
 					return p
 				}

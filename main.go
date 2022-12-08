@@ -33,9 +33,17 @@ func main() {
 		firstLine := scanner.Text()
 		sample_size, err = strconv.Atoi(firstLine)
 		checkErr(err)
+		if sample_size%8 != 0 || sample_size == 0 {
+			pterm.Error.Println("The sample size is not divisible by 8 or invalid. Please change it in default.txt - setting it to 2048 bits")
+			sample_size = 2048
+		}
 		scanner.Scan()
 		secondLine := scanner.Text()
 		interval_value, err = strconv.Atoi(secondLine)
+		if interval_value == 0 {
+			pterm.Error.Println("The interval is 0 or invalid. Please change it in default.txt - setting it to 1 second")
+			interval_value = 1
+		}
 		checkErr(err)
 		// Close the file
 		file.Close()
