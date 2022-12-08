@@ -58,7 +58,7 @@ func main() {
 				pterm.Info.Printf("The sample size is the default value of %v bits\n", sample_size)
 			}
 			if sample_size%8 != 0 {
-				pterm.Error.Printf("Please insert a number divisible by 8")
+				pterm.Error.Printf("Please insert a number divisible by 8\n")
 			}
 		}
 
