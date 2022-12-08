@@ -107,5 +107,10 @@ Type=Application
 Name=RNG  
 Exec=xterm -hold -e 'cd /home/pi/Desktop/go_rng/ && go run .'  
 
-4- Now it shoud start the aplication everytime the system boot and start collecting.
+4- Now it shoud start the aplication everytime the system boot and start collecting.  
+
+# ScreenShot  
+
+![go_rng_ss](https://user-images.githubusercontent.com/30575561/206533060-d75c046f-8e10-4aac-af5a-65a441660997.png)
+
 
