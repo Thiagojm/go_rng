@@ -25,7 +25,7 @@ func collectData(device string, s serial.Port, sample_size int, interval_value i
 		// Reads up to 100 bytes
 		n, err := s.Read(buff)
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalf("error while reading buff: %s", err)
 		}
 		if n == 0 {
 			fmt.Println("\nEOF")

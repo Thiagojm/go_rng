@@ -17,10 +17,11 @@ func get_correct_port() string {
 	if os == "windows" {
 		ports, err := enumerator.GetDetailedPortsList()
 		if err != nil {
-			log.Fatal(err)
-		} else if len(ports) == 0 {
-			log.Fatal(err)
+			log.Fatalf("Windows 1, %v", err)
 		}
+		//  else if len(ports) == 0 {
+		// 	log.Fatalf("Windows 2, %v", err)
+		// }
 		// Try to find the port with the correct name
 		for _, port := range ports {
 			//fmt.Printf("Port: %s\n", port.Name)
