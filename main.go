@@ -54,10 +54,11 @@ func main() {
 				pterm.Info.Printf("The sample size is %v bits\n", sample_size)
 			case <-time.After(7000 * time.Millisecond):
 				sample_size = 2048
-				pterm.Info.Printf("\nThe sample size is the default value of %v bits\n", sample_size)
+				fmt.Println("")
+				pterm.Info.Printf("The sample size is the default value of %v bits\n", sample_size)
 			}
 			if sample_size%8 != 0 {
-				pterm.Error.Printf("Please insert a number divisible by 8\n")
+				pterm.Error.Printf("Please insert a number divisible by 8")
 			}
 		}
 
@@ -69,7 +70,8 @@ func main() {
 			interval_value = i
 			pterm.Info.Printf("The interval is %v second(s)\n", interval_value)
 		case <-time.After(7000 * time.Millisecond):
-			pterm.Info.Printf("\nThe interval is the default value of %v second(s)\n", interval_value)
+			fmt.Println("")
+			pterm.Info.Printf("The interval is the default value of %v second(s)\n", interval_value)
 		}
 	}
 
